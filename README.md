@@ -1,3 +1,6 @@
+# important
+This project needs a local instance of MongoDB to run.
+
 ## install dependencies
 ```
 npm install
