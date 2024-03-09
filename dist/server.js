@@ -3,7 +3,7 @@
 var _app = _interopRequireDefault(require("./app"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 const port = 3000;
-module.exports = (async () => {
+(async () => {
   try {
     await _app.default.database.connect();
     const server = _app.default.listen(port, () => console.info(`app running on port ${port}`));
@@ -23,3 +23,4 @@ module.exports = (async () => {
     process.exit(1);
   }
 })();
+module.exports = _app.default;
