@@ -8,8 +8,8 @@
     "start": "npm run build && node dist/server.js",
     "start:dev": "babel-node src/server.js",
     "test": "npm run test:unit && npm run test:integration",
-    "test:integration": "mocha --config=test/integration/.mocharc.json test/integration/**/*_spec.js",
-    "test:unit": "mocha --config=test/unit/.mocharc.json test/unit/**/*_spec.js"
+    "test:integration": "SET NODE_ENV=test && mocha --config=test/integration/.mocharc.json test/integration/**/*_spec.js",
+    "test:unit": "SET NODE_ENV=test && mocha --config=test/unit/.mocharc.json test/unit/**/*_spec.js"
   },
   "author": "",
   "license": "ISC",

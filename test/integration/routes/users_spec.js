@@ -23,7 +23,7 @@ describe("Routes: Users", () => {
     const expectedAdminUser = {
         _id: defaultId,
         name: 'John Doe',
-        email: 'john@email.com',
+        email: 'john@mail.com',
         role: 'admin'
     };
 
@@ -43,7 +43,8 @@ describe("Routes: Users", () => {
             request
                 .get('/users')
                 .end((err, res) => {
-                    expectedAdminUser(res.body).to.eql([expectedAdminUser]);
+                    expect(res.body).to.eql([expectedAdminUser]);
+                    done(err);
                 });
         });
 
@@ -75,7 +76,7 @@ describe("Routes: Users", () => {
                 request
                     .post('/users')
                     .send(newUser)
-                    .end((end, res) => {
+                    .end((err, res) => {
                         expect(res.statusCode).to.eql(201);
                         expect(res.body).to.eql(expectedSavedUser);
                         done(err);
