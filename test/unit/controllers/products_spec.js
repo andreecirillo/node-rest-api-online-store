@@ -40,6 +40,7 @@ describe('Controllers: Products', () => {
             };
 
             response.status.withArgs(400).returns(response);
+            
             Product.find = sinon.stub();
             Product.find.withArgs({}).rejects({ message: 'Error' });
 
