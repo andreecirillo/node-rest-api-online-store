@@ -1,7 +1,11 @@
-class UsersController {
+import jwt from 'jsonwebtoken';
+import config from 'config';
+import bcrypt from 'bcrypt';
 
-    constructor(User) {
+class UsersController {
+    constructor(User, AuthService) {
         this.User = User;
+        this.AuthService = AuthService;
     }
 
     async get(req, res) {
@@ -11,7 +15,6 @@ class UsersController {
         } catch (err) {
             res.status(400).send(err.message);
         }
-
     }
 
     async getById(req, res) {
@@ -42,6 +45,7 @@ class UsersController {
         const body = req.body;
         try {
             const user = await this.User.findById(req.params.id);
+
             user.name = body.name;
             user.email = body.email;
             user.role = body.role;
@@ -63,6 +67,21 @@ class UsersController {
         } catch (err) {
             res.status(400).send(err.message);
         }
+    }
+
+    async authenticate(req, res) {
+        const authService = new this.AuthService(this.User);
+        const user = await authService.authenticate(req.body);
+        if (!user) {
+            return res.sendStatus(401);
+        }
+        const token = this.AuthService.generateToken({
+            name: user.name,
+            email: user.email,
+            password: user.password,
+            role: user.role
+        });
+        return res.send({ token });
     }
 }
 
